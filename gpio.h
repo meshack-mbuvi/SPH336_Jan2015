@@ -11,9 +11,8 @@
 #include "Mk60.h"
 
 void gpio_init(void);
-void toggle_LED1(void);
 void toggle_LED2(void);
-extern void puts(uint8_t *s);
+extern void put(uint8_t *s);
 extern void SystemInit(void);
 /*
 	brief PORTA initialization
@@ -46,15 +45,10 @@ void gpio_init(void)
 	//GPIOE->PDDR.bit_reg.bit9 = IN //UART5_RX is an input
 }
 
-void toggle_LED1(void){
-	GPIOA->PTOR.bit_reg.bit11 = on;
-	GPIOA->PTOR.bit_reg.bit29 = on;
-}
-
 void toggle_LED2(void){
 	GPIOA->PTOR.bit_reg.bit28 = on;
 	GPIOA->PTOR.bit_reg.bit10 = on;
-	puts((uint8_t*)("Hello World\r\n"));
+	put((uint8_t*)("Hello World\r\n"));
 }
 
 

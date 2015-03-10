@@ -10,14 +10,10 @@
  * http://www.wtfpl.net/ for more details.
  *
  */
-
+#include<ctype.h>
 #include"gpio.h"
 #include"uart.h"
-
-
-void delay(void);
-
-
+#include "led_blinker.h"
 
 int main(void){	
 	//temporally UART data holder
@@ -39,29 +35,21 @@ int main(void){
 	//Loop forever
 	while(1)
 	{
-		toggle_LED1(); 
-		delay();
+		//toggle_LED1();
+		
 		if(data_available()){
-			byte = uart_read();
+			LOOP: byte = uart_read();
+			if (isdigit(byte)){//check that data received is an digit
+				led_blinker(byte);//call function to blink leds with byte
+					//as the argument
+			}
+			// TODO: check character being given as input to be part of boundary
+			else{
+				reset();
+				goto LOOP;
+			}
 		}
-		delay();
 	}
+
 }
 
-
-
-
-
-/*
-	brief  Silly delay
-*/
-void delay(void)
-{
-  volatile unsigned int i,j;
-
-  for(i=0; i<25000; i++)
-  {
-	for(j=0; j<300; j++)
-      __asm__("nop");
-  }
-}

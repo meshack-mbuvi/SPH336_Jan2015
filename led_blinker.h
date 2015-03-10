@@ -2,7 +2,7 @@
  * led_blinker.h
  *
  *  Created on: Mar 6, 2015
- *      Author: gathu
+ *      Author: meshack mbuvi
  */
 
 #ifndef LED_BLINKER_H_

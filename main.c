@@ -10,11 +10,8 @@
  * http://www.wtfpl.net/ for more details.
  *
  */
-#include<ctype.h>
 #include"gpio.h"
 #include"uart.h"
-#include "led_blinker.h"
-
 int main(void){	
 	//temporally UART data holder
 	uint8_t byte=0;
@@ -34,19 +31,16 @@ int main(void){
 
 	//Loop forever
 	while(1)
-	{
-		//toggle_LED1();
-		
+	{		
 		if(data_available()){
 			LOOP: byte = uart_read();
-			if (isdigit(byte)){//check that data received is an digit
-				led_blinker(byte);//call function to blink leds with byte
+			if (byte>47&&byte<58){//check that data received is an digit
+				blinkLEDS(byte);//call function to blink leds with byte
 					//as the argument
 			}
 			// TODO: check character being given as input to be part of boundary
 			else{
-				reset();
-				goto LOOP;
+			goto LOOP;
 			}
 		}
 	}

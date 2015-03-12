@@ -14,6 +14,7 @@ void gpio_init(void);
 void toggle_LED2(void);
 extern void put(uint8_t *s);
 extern void SystemInit(void);
+void blinkLEDS(char);
 /*
 	brief PORTA initialization
 */
@@ -51,6 +52,23 @@ void toggle_LED2(void){
 	put((uint8_t*)("Hello World\r\n"));
 }
 
+void blinkLEDS(char byte1){
+	  int i,k;
+	  int LED[4];//An array of four leds
+	  for (i = 0; i < 4; i++) {//looping through the byte 
+	  k = (( byte1 << i));	//left bitshifting
+
+	   if (k & 0x08){	//applying bitwise operator AND to k and the mask
+	    	LED[i] = 1;}	//if in the result there is 1,position i is set
+	    else{
+	    	LED[i] = 0;}
+	  }
+		//assigning GPIOA's controlling the leds to bit position of the array LED[4]
+		GPIOA->PDDR.bit_reg.bit11 = LED[0]; //e1
+	  	GPIOA->PDDR.bit_reg.bit28 = LED[1]; //e2
+	  	GPIOA->PDDR.bit_reg.bit29 = LED[2]; //e3
+	  	GPIOA->PDDR.bit_reg.bit10 = LED[3]; //e4
+}
 
 /*
 	brief  Port A ISR Handler

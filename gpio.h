@@ -9,11 +9,20 @@
 #define GPIO_H_
 
 #include "Mk60.h"
+#include "main.h"
 
 void  displayBinary(char);
 void gpio_init(void);
+<<<<<<< HEAD
 void toggle_LED2(void);
 extern void put(uint8_t *s);
+=======
+//void toggle_LED1(void);
+//void toggle_LED2(void);
+extern void toggle_LEDS(void);
+extern void toggle_LED2(void);
+extern void puts(uint8_t *s);
+>>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
 extern void SystemInit(void);
 /*
 	brief PORTA initialization
@@ -46,11 +55,29 @@ void gpio_init(void)
 	//GPIOE->PDDR.bit_reg.bit9 = IN //UART5_RX is an input
 }
 
+<<<<<<< HEAD
+=======
+/*
+void toggle_LED1(void){
+	//volatile int mask=1<<29;
+	//GPIOA->PTOR.bit_reg.bit11 = on; //0x20000000
+	//GPIOA->PTOR.bit_reg.bit29 = on;
+	asm(	".equ mask, 0x20000000;" // declare a mask for bit 29
+			"LDR R1, =0x400ff00c;" // create a pointer to GPIOA->PTOR
+			"LDR R2, [R1];" //load GPIOA->PTOR to R2 using R1 as pointer
+			"ORR R2, mask;" //mask bit 29
+			"STR R2, [R1]" //write back the result to GPIOA->PTOR
+		);
+}
+*/
+/*
+>>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
 void toggle_LED2(void){
-	GPIOA->PTOR.bit_reg.bit28 = on;
+	//GPIOA->PTOR.bit_reg.bit28 = on;
 	GPIOA->PTOR.bit_reg.bit10 = on;
 	put((uint8_t*)("Hello World\r\n"));
 }
+<<<<<<< HEAD
 void  displayBinary(char byte1){
 	  int i,k;
 	  int LED[4];//An array of four leds
@@ -67,6 +94,21 @@ void  displayBinary(char byte1){
 	  	GPIOA->PDDR.bit_reg.bit28 = LED[1]; //e2
 	  	GPIOA->PDDR.bit_reg.bit29 = LED[2]; //e3
 	  	GPIOA->PDDR.bit_reg.bit10 = LED[3]; //e4
+=======
+*/
+//display a number inbinary with the 4 LEDs
+//LED1 -> bit11
+//LED2 -> bit28
+//LED3 -> bit29
+//LED4 -> bit10
+void display(char number){
+	char bits[4]={0,0,0,0};
+	int i=0;
+	for(i=0;i<4;i++){
+		bits[i]=~(number>>i)&1;
+	}
+	GPIOA->PDOR.word_reg = (uint32_t)(bits[0]<<11 | bits[1]<<28 | bits[2]<<29 | bits[3]<<10);
+>>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
 }
 
 /*

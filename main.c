@@ -11,6 +11,7 @@
  *
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include"gpio.h"
 #include"uart.h"
 =======
@@ -18,6 +19,10 @@
 #include "main.h"
 >>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
 
+=======
+#include"gpio.h"
+#include"uart.h"
+>>>>>>> 747c0ee4738a733d5154ecfcc2cbcfa7a2db9602
 int main(void){	
 	//temporally UART data holder
 	uint8_t byte=0, blink=1;
@@ -37,6 +42,7 @@ int main(void){
 
 	//Loop forever
 	while(1)
+<<<<<<< HEAD
 	{
 <<<<<<< HEAD
 		if(data_available()){
@@ -84,5 +90,21 @@ void delay(void)
       __asm__("nop");
   }
 >>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
+=======
+	{		
+		if(data_available()){
+			LOOP: byte = uart_read();
+			if (byte>47&&byte<58){//check that data received is an digit
+				blinkLEDS(byte);//call function to blink leds with byte
+					//as the argument
+			}
+			// TODO: check character being given as input to be part of boundary
+			else{
+			goto LOOP;
+			}
+		}
+	}
+
+>>>>>>> 747c0ee4738a733d5154ecfcc2cbcfa7a2db9602
 }
 

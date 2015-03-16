@@ -14,6 +14,7 @@
 void  displayBinary(char);
 void gpio_init(void);
 <<<<<<< HEAD
+<<<<<<< HEAD
 void toggle_LED2(void);
 extern void put(uint8_t *s);
 =======
@@ -23,7 +24,12 @@ extern void toggle_LEDS(void);
 extern void toggle_LED2(void);
 extern void puts(uint8_t *s);
 >>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
+=======
+void toggle_LED2(void);
+extern void put(uint8_t *s);
+>>>>>>> 747c0ee4738a733d5154ecfcc2cbcfa7a2db9602
 extern void SystemInit(void);
+void blinkLEDS(char);
 /*
 	brief PORTA initialization
 */
@@ -56,6 +62,7 @@ void gpio_init(void)
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /*
 void toggle_LED1(void){
@@ -72,6 +79,8 @@ void toggle_LED1(void){
 */
 /*
 >>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
+=======
+>>>>>>> 747c0ee4738a733d5154ecfcc2cbcfa7a2db9602
 void toggle_LED2(void){
 	//GPIOA->PTOR.bit_reg.bit28 = on;
 	GPIOA->PTOR.bit_reg.bit10 = on;
@@ -84,16 +93,28 @@ void  displayBinary(char byte1){
 	  for (i = 0; i < 4; i++) {//looping through the byte 
 	  k = (( byte1 << i));	//left bitshifting
 
+<<<<<<< HEAD
 	   if (k & 0x08){	//applying bitwise operator AND to k and the mask
 	    	LED[i] = 1;}	//if in the result there is 1,position i is set
 	    else{
 	    	LED[i] = 0;}
 	  }
+=======
+void blinkLEDS(char byte1){
+	  int i,k;
+	  int LED[4];//An array of four leds
+	  for (i = 0; i < 4; i++) {//looping through the byte 
+	  k = (( byte1 << i));	//left bitshifting
+	  	//applying bitwise operator AND to k and the mask
+	    	LED[i] = k&1;}	//if in the result there is 1,position i is set
+	 	  }
+>>>>>>> 747c0ee4738a733d5154ecfcc2cbcfa7a2db9602
 		//assigning GPIOA's controlling the leds to bit position of the array LED[4]
 		GPIOA->PDDR.bit_reg.bit11 = LED[0]; //e1
 	  	GPIOA->PDDR.bit_reg.bit28 = LED[1]; //e2
 	  	GPIOA->PDDR.bit_reg.bit29 = LED[2]; //e3
 	  	GPIOA->PDDR.bit_reg.bit10 = LED[3]; //e4
+<<<<<<< HEAD
 =======
 */
 //display a number inbinary with the 4 LEDs
@@ -109,6 +130,8 @@ void display(char number){
 	}
 	GPIOA->PDOR.word_reg = (uint32_t)(bits[0]<<11 | bits[1]<<28 | bits[2]<<29 | bits[3]<<10);
 >>>>>>> cd325d88c5957456e9f237e88e3edd91f62c6dfa
+=======
+>>>>>>> 747c0ee4738a733d5154ecfcc2cbcfa7a2db9602
 }
 
 /*

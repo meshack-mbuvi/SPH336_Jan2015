@@ -86,8 +86,8 @@ $(OBJ_FOLDER)%.o : %.s
 	$(AS) $(ASFLAGS) $< -o $@
 	@echo 'Finished building: $(@F)'
 	@echo ' '
-# TODO: generate assembly lisiting 
-all: clean create_outputdir $(OBJ_FOLDER)$(TARGET).$(TARGET_EXT) print_size
+
+all: create_outputdir $(OBJ_FOLDER)$(TARGET).$(TARGET_EXT) print_size
 
 create_outputdir:
 	$(shell mkdir $(OBJ_FOLDER) 2>/dev/null)

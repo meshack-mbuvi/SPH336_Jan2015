@@ -10,9 +10,9 @@
  * http://www.wtfpl.net/ for more details.
  *
  */
-
 #include "main.h"
-
+#include"gpio.h"
+#include"uart.h"
 int main(void){	
 	//temporally UART data holder
 	uint8_t byte=0, blink=1;
@@ -21,7 +21,7 @@ int main(void){
 	SystemInit();
 
 	//initialize UART5 with 8-N-1 settings, 57600 baudrate
-	init_uart(UART5_BASE_PTR,periph_clk_khz,57600);
+	init_uart(UART3_BASE_PTR,periph_clk_khz,57600);
 
 	//clear all interrupts and enable interrupts
 	nvic->ICPR[2] |= 1 << (87 & 0x1F); //Clear Pending Interrupts
@@ -33,23 +33,17 @@ int main(void){
 	//Loop forever
 	while(1)
 	{
-		if(blink) toggle_LEDS();
 		if(data_available()){
 			byte = uart_read();
-			if((byte>47 && byte<58)||(byte>64 && byte<71)){	//ascii characters for numbers from 0 to F only
-				if(byte<58) display((char)byte-48);			//ascii characters for numbers from 0 to 9 only
-				if(byte>58) display((char)byte-55);			//ascii characters for numbers from A to F only
-				blink=0;
-			}else if(byte==0x7e){	//a tilda(~) send microcontroller information
-				display((char)0x00);
-				sysinfo();
-				blink=0;
-			}else{					//new line character plus all others here
-				display((char)0x00);
-				blink=1;
+			if ((byte>47&&byte<58)){//check that data received is an digit
+				displayBinary(byte);//call function to blink leds with byte
+					//as the argument
 			}
+			// TODO: check character being given as input to be part of boundary
+			else{;}
+
+			
 		}
-		delay();
 	}
 }
 
@@ -66,3 +60,4 @@ void delay(void)
       __asm__("nop");
   }
 }
+

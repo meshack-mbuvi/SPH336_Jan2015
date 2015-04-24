@@ -60,16 +60,16 @@ uint16_t data_ready (UART_MemMapPtr channel)
 
 
 char uart_read(void){
-	return uart_getchar (UART5_BASE_PTR);
+	return uart_getchar (UART3_BASE_PTR);
 }
 
 //send a char to UART5_TX
 void uartsend(uint8_t ch){
-	uart_putchar (UART5_BASE_PTR,ch);
+	uart_putchar (UART3_BASE_PTR,ch);
 }
 
 //send a string
-void puts(uint8_t *s){
+void put(uint8_t *s){
 	while(*s!='\0'){
 		uartsend(*s++);
 	}
@@ -78,6 +78,6 @@ void puts(uint8_t *s){
 //abstract data_ready function for main, doesnt need to know what chunnel is being used
 uint16_t data_available(void)
 {
-	return data_ready(UART5_BASE_PTR);
+	return data_ready(UART3_BASE_PTR);
 }
 

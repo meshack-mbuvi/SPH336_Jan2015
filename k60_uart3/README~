@@ -1,0 +1,10 @@
+ created processor expert project, …
+
+set necessary toolchains and debug configurations
+set uart3 as a channel and PTC17 as TX and PTC16 as Rx
+Added Bit I/O component with initial value 0
+Generated,build and debuged the binaries using k60n512 MCU,LED E1 lightsGroupe Members:
+
+1.Mwikali Mbuvi Meshack I39/2144/2012
+2.Gathu Boswel 		I39/2140/2012
+3.Allela Roy  		I39/2137/2012
